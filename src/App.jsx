@@ -1,3 +1,8 @@
+import {
+  BrowserRouter as Router,
+  Routes, Route, Link
+} from 'react-router-dom'
+
 import { useState } from 'react'
 
 const Menu = () => {
@@ -6,9 +11,11 @@ const Menu = () => {
   }
   return (
     <div>
-      <a href='#' style={padding}>anecdotes</a>
-      <a href='#' style={padding}>create new</a>
-      <a href='#' style={padding}>about</a>
+      <div>
+        <Link style={padding} to="/">anecdotes</Link>
+        <Link style={padding} to="/create">create new</Link>
+        <Link style={padding} to="/about">about</Link>
+      </div>
     </div>
   )
 }
@@ -123,14 +130,16 @@ const App = () => {
   }
 
   return (
-    <div>
+    <Router>
       <h1>Software anecdotes</h1>
       <Menu />
-      <AnecdoteList anecdotes={anecdotes} />
-      <About />
-      <CreateNew addNew={addNew} />
+      <Routes>
+        <Route path="/" element={<AnecdoteList anecdotes={anecdotes}/>} />
+        <Route path="/create" element={<CreateNew addNew={addNew}/>} />
+        <Route path="/about" element={<About />} />
+      </Routes>
       <Footer />
-    </div>
+    </Router>
   )
 }
 
